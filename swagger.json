@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000",
+      "url": "https://medicaldashboard-backend-xv3e.onrender.com",
 
       "description": "Development server"
     }
