@@ -3,7 +3,7 @@ const {
   statusSuppliersList,
   validDecimalNumber,
   validDatePattern,
-} = require('../constants/product-constants');
+} = require('../constants/constants');
 const { handleValidateError, runUpdateValidators } = require('./hooks');
 
 const supplierSchema = new Schema(
@@ -41,8 +41,13 @@ const supplierSchema = new Schema(
       required: [true, 'Set status for product'],
       enum: {
         values: statusSuppliersList,
-        message: `status must be one of the allowed categories ${statusSuppliersList} `,
+        message: `status must be one of the allowed statuses ${statusSuppliersList} `,
       },
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
     },
   },
   { versionKey: false, timestamps: true }

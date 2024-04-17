@@ -1,4 +1,4 @@
-const Product = require('../models/Product');
+const Customer = require('../models/Customer');
 
 const { HttpError } = require('../helpers');
 
@@ -14,20 +14,19 @@ const getAll = async (req, res) => {
   if (filterQuery) {
     filter.$or = [
       { name: { $regex: filterQuery, $options: 'i' } },
-      { category: { $regex: filterQuery, $options: 'i' } },
-      { suppliers: { $regex: filterQuery, $options: 'i' } },
-      { stock: { $regex: filterQuery, $options: 'i' } },
-      { price: { $regex: filterQuery, $options: 'i' } },
+      { email: { $regex: filterQuery, $options: 'i' } },
+      { address: { $regex: filterQuery, $options: 'i' } },
+      { phone: { $regex: filterQuery, $options: 'i' } },
     ];
   }
 
-  const result = await Product.find(filter)
+  const result = await Customer.find(filter)
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit)
     .populate('owner', 'name');
 
-  const total = await Product.countDocuments(filter);
+  const total = await Customer.countDocuments(filter);
 
   res.json({
     total,
@@ -40,33 +39,33 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   const { id } = req.params;
-  const result = await Product.findById(id);
+  const result = await Customer.findById(id);
   if (!result) {
-    throw HttpError(404, `Product with this id=${id} not found`);
+    throw HttpError(404, `Customer with this id=${id} not found`);
   }
   res.json(result);
 };
 
 const add = async (req, res) => {
   const { _id: owner } = req.user;
-  const result = await Product.create({ ...req.body, owner });
+  const result = await Customer.create({ ...req.body, owner });
   res.status(201).json(result);
 };
 
 const updateById = async (req, res) => {
   const { id } = req.params;
-  const result = await Product.findByIdAndUpdate(id, req.body, { new: true });
+  const result = await Customer.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
-    throw HttpError(404, `Product with this id=${id} not found`);
+    throw HttpError(404, `Customer with this id=${id} not found`);
   }
   res.json(result);
 };
 
 const deleteById = async (req, res) => {
   const { id } = req.params;
-  const result = await Product.findByIdAndDelete(id);
+  const result = await Customer.findByIdAndDelete(id);
   if (!result) {
-    throw HttpError(404, `Product with this id=${id} not found`);
+    throw HttpError(404, `Customer with this id=${id} not found`);
   }
   res.json({ message: 'Delete success' });
 };
@@ -76,6 +75,6 @@ module.exports = {
   getById: ctrlWrapper(getById),
   add: ctrlWrapper(add),
   updateById: ctrlWrapper(updateById),
-
+  // updateFavorite: ctrlWrapper(updateFavorite),
   deleteById: ctrlWrapper(deleteById),
 };

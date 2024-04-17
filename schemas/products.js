@@ -4,7 +4,7 @@ const {
   validDecimalNumber,
   validStock,
   validUrlImageExtensions,
-} = require('../constants/product-constants');
+} = require('../constants/constants');
 
 const productAddSchema = Joi.object({
   photo: Joi.string().pattern(validUrlImageExtensions).optional().messages({

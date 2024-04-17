@@ -1,13 +1,14 @@
 const { Schema, model } = require('mongoose');
 const {
-  categoriesList,
+  ordersList,
   validDecimalNumber,
   validStock,
   validUrlImageExtensions,
+  validDatePattern,
 } = require('../constants/constants');
 const { handleValidateError, runUpdateValidators } = require('./hooks');
 
-const productSchema = new Schema(
+const orderSchema = new Schema(
   {
     photo: {
       type: String,
@@ -20,14 +21,21 @@ const productSchema = new Schema(
       type: String,
       required: [true, 'Set name for product'],
     },
-    suppliers: {
+    address: {
       type: String,
-      required: [true, 'Set suppliers for product'],
+      required: [true, 'Set address for product'],
     },
-    stock: {
+    products: {
       type: String,
-      required: [true, 'Set stock for product'],
-      match: [validStock, 'Stock must be a positive integer.'],
+      required: [true, 'Set products for product'],
+      match: [validStock, 'Products must be a positive integer.'],
+    },
+    order_date: {
+      type: String,
+      match: [
+        validDatePattern,
+        'date field should be in the format "Month DD, YYYY"',
+      ],
     },
     price: {
       type: String,
@@ -37,12 +45,12 @@ const productSchema = new Schema(
         'Price must be a positive number with no more than 2 decimal places.',
       ],
     },
-    category: {
+    status: {
       type: String,
-      required: [true, 'Set category for product'],
+      required: [true, 'Set status for product'],
       enum: {
-        values: categoriesList,
-        message: `category must be one of the allowed categories ${categoriesList} `,
+        values: ordersList,
+        message: `status must be one of the allowed statuses ${ordersList} `,
       },
     },
     owner: {
@@ -50,17 +58,13 @@ const productSchema = new Schema(
       ref: 'user',
       required: true,
     },
-    // favorite: {
-    //   type: Boolean,
-    //   default: false,
-    // }
   },
   { versionKey: false, timestamps: true }
 );
-productSchema.post('save', handleValidateError);
-productSchema.pre('findOneAndUpdate', runUpdateValidators);
-productSchema.post('findOneAndUpdate', handleValidateError);
+orderSchema.post('save', handleValidateError);
+orderSchema.pre('findOneAndUpdate', runUpdateValidators);
+orderSchema.post('findOneAndUpdate', handleValidateError);
 
-const Product = model('product', productSchema);
+const Order = model('order', orderSchema);
 
-module.exports = Product;
+module.exports = Order;

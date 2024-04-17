@@ -1,11 +1,11 @@
 const express = require('express');
 
-const ctrl = require('../../controllers/suppliers');
+const ctrl = require('../../controllers/orders');
 const { validateBody, validateQuery } = require('../../decorators');
 const { isValidId, authenticate } = require('../../middlewares');
-const schemas = require('../../schemas/suppliers');
+const schemas = require('../../schemas/orders');
 
-const addSupplierValidate = validateBody(schemas.supplierAddSchema);
+const addOrderValidate = validateBody(schemas.orderAddSchema);
 const queryParamValidate = validateQuery(schemas.queryParamSchema);
 
 const router = express.Router();
@@ -15,9 +15,9 @@ router.get('/', queryParamValidate, ctrl.getAll);
 
 router.get('/:id', isValidId, ctrl.getById);
 
-router.post('/', addSupplierValidate, ctrl.add);
+router.post('/', addOrderValidate, ctrl.add);
 
-router.put('/:id', isValidId, addSupplierValidate, ctrl.updateById);
+router.put('/:id', isValidId, addOrderValidate, ctrl.updateById);
 
 router.delete('/:id', ctrl.deleteById);
 
