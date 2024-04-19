@@ -35,24 +35,15 @@ const productAddSchema = Joi.object({
       'string.base': 'category field should be a string',
       'any.only': `category must be one of the allowed categories ${categoriesList} `,
     }),
-
-  // favorite: Joi.boolean().optional().messages({
-  //   'boolean.base': 'favorite field should be a boolean',
-  // }),
 });
 
 const queryParamSchema = Joi.object({
   page: Joi.number().integer().min(1).default(1),
   limit: Joi.number().integer().min(1).max(100).default(5),
-  filterQuery: Joi.string().optional(),
+  filterQuery: Joi.string().allow('').optional(),
 });
-// const productUpdateFavoriteSchema = Joi.object({
-//   favorite: Joi.boolean().required().messages({
-//     'boolean.base': 'favorite field should be a boolean',
-//   }),
-// });
+
 module.exports = {
   productAddSchema,
   queryParamSchema,
-  // productUpdateFavoriteSchema,
 };
