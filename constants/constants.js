@@ -1,7 +1,9 @@
 const categoriesList = [
   'Medicine',
+  'Heart',
   'Head',
   'Hand',
+  'Leg',
   'Dental Care',
   'Skin Care',
   'Eye Care',

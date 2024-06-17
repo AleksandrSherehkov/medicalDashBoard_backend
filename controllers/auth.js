@@ -42,7 +42,7 @@ const signin = async (req, res) => {
   };
 
   const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-    expiresIn: '30m',
+    expiresIn: '2m',
   });
   const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
     expiresIn: '7d',
@@ -67,12 +67,12 @@ const refresh = async (req, res) => {
     };
 
     const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-      expiresIn: '30m',
+      expiresIn: '2m',
     });
     const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
       expiresIn: '7d',
     });
-    // await User.findByIdAndUpdate(id, { accessToken, refreshToken });
+    await User.findByIdAndUpdate(id, { accessToken });
     res.json({
       accessToken,
       refreshToken,

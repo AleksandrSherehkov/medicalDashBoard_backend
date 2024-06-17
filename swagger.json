@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://medicaldashboard-backend-xv3e.onrender.com",
+      "url": "https://medicaldashboard-backend.onrender.com",
 
       "description": "Development server"
     }
@@ -1481,7 +1481,7 @@
         "type": "object",
         "required": ["name", "amount", "type"],
         "properties": {
-          "id": {
+          "_id": {
             "type": "string",
             "format": "uuid",
             "description": "Transaction ID"
@@ -1560,7 +1560,7 @@
       "Product": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string",
             "format": "uuid",
             "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
@@ -1624,7 +1624,7 @@
       "Supplier": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string",
             "format": "uuid",
             "example": "123e4567-e89b-12d3-a456-426614174000"
@@ -1691,7 +1691,7 @@
       "Order": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string",
             "example": "5e9f8f8f8f8f8f8f8f8f8f8"
           },
