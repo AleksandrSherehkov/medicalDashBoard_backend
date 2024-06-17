@@ -19,4 +19,6 @@ router.post('/user/refresh', refreshValidateMiddleware, ctrl.refresh);
 router.get('/user/current', authenticate, ctrl.getCurrentUserInfo);
 router.post('/user/signout', authenticate, ctrl.signout);
 
+router.get('/up/ping', ctrl.getPing);
+
 module.exports = router;

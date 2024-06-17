@@ -98,10 +98,15 @@ const signout = async (req, res) => {
   });
 };
 
+const getPing = async (_, res) => {
+  res.status(200).json({ message: 'Server is alive' });
+};
+
 module.exports = {
   signup: ctrlWrapper(signup),
   signin: ctrlWrapper(signin),
   refresh: ctrlWrapper(refresh),
   getCurrentUserInfo: ctrlWrapper(getCurrentUserInfo),
   signout: ctrlWrapper(signout),
+  getPing: ctrlWrapper(getPing),
 };
