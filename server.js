@@ -12,7 +12,7 @@ mongoose
       console.log(`Server running. Use our API on port: ${PORT}`);
     });
 
-    setInterval(pingServer, 10 * 60 * 1000);
+    setInterval(pingServer, 19 * 60 * 1000);
     pingServer();
   })
   .catch(error => {
